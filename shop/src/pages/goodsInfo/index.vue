@@ -62,10 +62,10 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      banners: [],
-      goodsInfo: {},
-      num: 1,
-      ballFlag:false
+      banners: [],  //轮播图数据
+      goodsInfo: {},  //商品详情数据
+      num: 1,     //购买数量
+      ballFlag:false  //控制小球显示隐藏
     };
   },
   created() {
@@ -91,20 +91,25 @@ export default {
         }
       });
     },
+    //当输入框改变时,触发函数,输入的数量不能大于库存
     filterMaxCount() {
       if (this.num > this.goodsInfo.stock_quantity) {
         this.num = this.goodsInfo.stock_quantity;
       }
     },
+    //编程式导航,去图文介绍页面
     goDesc(id) {
       this.$router.push("/home/goodsDesc/" + this.id);
     },
+    //编程式导航,去商品评论页面
     goComment(id) {
       this.$router.push("/home/goodsComment/" + this.id);
     },
+    //添加购物车
     addToshopcar() {
       this.ballFlag = !this.ballFlag
     },
+    //小球半场动画
     beforeEnter(el) {
       //beforeEnter表示动画入场之前,表示动画尚未开始,可以在这里设置动画开始之前的起始样式
       el.style.transform = "translate(0,0)"
@@ -118,12 +123,12 @@ export default {
       //3.思路:先得到徽标的横纵坐标,再得到小球的横纵坐标,然后让y值求差,x值也求差,这样得到的结果就是横纵坐标要位移的距离
       //4.如何获取小球的位置?   domObj.getBoundingClientRect()
       //获取小球在页面中的位置
-      console.log(this.$refs.ball);
+      // console.log(this.$refs.ball)
       const ballPosition = this.$refs.ball.getBoundingClientRect()
       //获取徽标在页面中的位置
       const badgePosition = document.getElementById("badge").getBoundingClientRect()
-      console.log(ballPosition)
-      console.log(badgePosition)
+      // console.log(ballPosition)
+      // console.log(badgePosition)
       const xDist = badgePosition.left-ballPosition.left
       const yDist = badgePosition.top-ballPosition.top
       el.style.transform = `translate(${xDist}px, ${yDist}px)`
