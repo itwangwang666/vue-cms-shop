@@ -17,6 +17,7 @@ import 'mint-ui/lib/style.css'
 //2.安装mint-ui(全局注册所有的组件)
 Vue.use(MintUI)
 
+import './styles/common.css'
 //引入mui的css文件
 import './libs/mui/css/mui.css'
 //引入mui扩展字体的css文件
@@ -40,7 +41,7 @@ Vue.component('comment',comment)
 import swiper from './components/swiper.vue'
 Vue.component('swiper', swiper)
 
-//全局安装vue-pic-preview
+//全局安装vue-pic-preview,缩略图
 import VuePreview from 'vue-pic-preview'
 Vue.use(VuePreview)
 
