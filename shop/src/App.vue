@@ -16,7 +16,7 @@
 			</router-link>
 			<router-link class="mui-tab-item1" to="/shopcar">
 				<span class="mui-icon mui-icon-extra-cart mui-icon-extra">
-        <span class="mui-badge" id="badge">0</span></span>
+        <span class="mui-badge" id="badge">{{$store.getters.totalCount}}</span></span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
 			<router-link class="mui-tab-item1" to="/search">
@@ -34,11 +34,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 #app {
   padding-top: 40px;
 	padding-bottom: 50px;
 	overflow-x: hidden;
+	.mint-header.is-fixed {
+    z-index: 999;
+  }
 }
 .v-enter{
 	opacity: 0;

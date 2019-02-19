@@ -108,6 +108,12 @@ export default {
     //添加购物车
     addToshopcar() {
       this.ballFlag = !this.ballFlag
+      this.$store.commit('addToCar',{
+        id:this.goodsInfo.id,
+        count:this.num,
+        price:this.goodsInfo.sell_price,
+        selected:true
+      })
     },
     //小球半场动画
     beforeEnter(el) {

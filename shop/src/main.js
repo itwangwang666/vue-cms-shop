@@ -45,10 +45,66 @@ Vue.component('swiper', swiper)
 import VuePreview from 'vue-pic-preview'
 Vue.use(VuePreview)
 
+//安装vuex
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
+let car = JSON.parse(localStorage.getItem('car') || '[]')
+let store = new Vuex.Store({
+  state:{
+    //car里面需要{id,price,count,selected}
+    car
+  },
+  mutations:{
+    addToCar(state,goodsInfo){
+      //加入购物车的业务逻辑
+      //1.即将要加入的商品是否在购物车已经存在
+      //2.如果存在只需要更新数量信息即可
+      //3.如果不存在只需要push进car数组即可
+      //假设法
+      // let flag = false
+      // state.car.some(item=>{
+      //   if (item.id === goodsInfo.id){
+      //     item.count += parseInt(goodsInfo.count)
+      //     flag = true
+      //     return true
+      //   }
+      // })
+      // if(!flag){
+      //   state.car.push(goodsInfo)
+      // }
+
+      //不使用假设法
+      let index = state.car.findIndex(item=>{
+        if(item.id === goodsInfo.id){
+          return true
+        }
+      })
+      if(index === -1){
+        state.car.push(goodsInfo)
+      }else{
+        state.car[index].count += parseInt(goodsInfo.count)
+      }
+      //当更新car之后,把car数组存在localStorage里面
+      localStorage.setItem('car', JSON.stringify(state.car))
+    }
+  },
+  getters:{
+    totalCount(state){
+      let sum = 0
+      state.car.forEach(item=>{
+        sum += item.count
+      })
+      return sum
+    }
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
